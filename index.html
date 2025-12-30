@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语句接口｜语言包</title>
+    <style>
+        /* 全局样式重置与基础配置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 标题样式 */
+        h2 {
+            color: #1f2937;
+            margin: 2.5rem 0 1.2rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: #1f2937;
+            margin: 2rem 0 1rem;
+            font-size: 1.5rem;
+            border-left: 4px solid #3b82f6;
+            padding-left: 0.8rem;
+        }
+
+        h4 {
+            color: #1f2937;
+            margin: 1.8rem 0 0.8rem;
+            font-size: 1.2rem;
+            padding-left: 0.5rem;
+            color: #3b82f6;
+        }
+
+        /* 锚点样式优化 */
+        .header-anchor {
+            text-decoration: none;
+            color: #9ca3af;
+            margin-left: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        h3:hover .header-anchor,
+        h4:hover .header-anchor,
+        h2:hover .header-anchor {
+            opacity: 1;
+        }
+
+        /* 表格通用样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 表格头部样式 */
+        thead {
+            background-color: #1f2937;
+            color: #ffffff;
+        }
+
+        th {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* 表格主体样式 */
+        tbody {
+            color: #4b5563;
+        }
+
+        tr {
+            border-bottom: 1px solid #e5e7eb;
+            transition: background-color 0.2s ease;
+        }
+
+        /* 奇偶行区分样式 */
+        tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        /* 行悬停效果 */
+        tbody tr:hover {
+            background-color: #f3f4f6;
+        }
+
+        td {
+            padding: 1rem 1.2rem;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        /* 代码样式 */
+        code {
+            background-color: #f3f4f6;
+            color: #dc2626;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.85rem;
+        }
+
+        /* 链接样式 */
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            h4 {
+                font-size: 1.1rem;
+            }
+
+            th,
+            td {
+                padding: 0.8rem 0.6rem;
+                font-size: 0.85rem;
+            }
+
+            /* 小屏幕下表格横向滚动 */
+            .table-wrapper {
+                overflow-x: auto;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            }
+
+            table {
+                width: 100%;
+                min-width: 600px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 包裹表格实现移动端横向滚动 -->
+    <div class="table-wrapper">
+        <h3 id="请求参数" tabindex="-1">请求参数 <a class="header-anchor" href="#请求参数"
+                aria-label="Permalink to &quot;请求参数&quot;">&ZeroWidthSpace;</a></h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>参数</th>
+                    <th>值</th>
+                    <th>可选</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>type</td>
+                    <td>见后表</td>
+                    <td>是</td>
+                    <td>句子类型</td>
+                </tr>
+                <tr>
+                    <td>encode</td>
+                    <td>见后表</td>
+                    <td>是</td>
+                    <td>返回编码</td>
+                </tr>
+                <tr>
+                    <td>charset</td>
+                    <td>见后表</td>
+                    <td>是</td>
+                    <td>字符集</td>
+                </tr>
+                                <tr>
+                    <td>content</td>
+                    <td>见后表</td>
+                    <td>是</td>
+                    <td>返回数据</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <h4 id="句子类型-参数" tabindex="-1">句子类型（参数） <a class="header-anchor" href="#句子类型-参数"
+                aria-label="Permalink to &quot;句子类型（参数）&quot;">&ZeroWidthSpace;</a></h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Anime</td>
+                    <td>动画</td>
+                </tr>
+                <tr>
+                    <td>Comic</td>
+                    <td>漫画</td>
+                </tr>
+                <tr>
+                    <td>Game</td>
+                    <td>游戏</td>
+                </tr>
+                <tr>
+                    <td>Literature</td>
+                    <td>文学</td>
+                </tr>
+                <tr>
+                    <td>Original</td>
+                    <td>原创</td>
+                </tr>
+                <tr>
+                    <td>Internet</td>
+                    <td>来自网络</td>
+                </tr>
+                <tr>
+                    <td>Other</td>
+                    <td>其他</td>
+                </tr>
+                <tr>
+                    <td>Video</td>
+                    <td>影视</td>
+                </tr>
+                <tr>
+                    <td>Poem</td>
+                    <td>诗词</td>
+                </tr>
+                <tr>
+                    <td>NCM</td>
+                    <td>网易云</td>
+                </tr>
+                <tr>
+                    <td>Philosophy</td>
+                    <td>哲学</td>
+                </tr>
+                <tr>
+                    <td>Funny</td>
+                    <td>抖机灵</td>
+                </tr>
+                <tr>
+                    <td>All</td>
+                    <td>全部</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <h4 id="返回编码-参数" tabindex="-1">返回编码（参数） <a class="header-anchor" href="#返回编码-参数"
+                aria-label="Permalink to &quot;返回编码（参数）&quot;">​</a></h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>text</td>
+                    <td>返回纯洁文本</td>
+                </tr>
+                <tr>
+                    <td>json</td>
+                    <td>返回格式化后的 JSON 文本</td>
+                </tr>
+                <tr>
+                    <td>其他</td>
+                    <td>返回格式化后的 JSON 文本</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <h4 id="字符集-参数" tabindex="-1">字符集（参数） <a class="header-anchor" href="#字符集-参数"
+                aria-label="Permalink to &quot;字符集（参数）&quot;">​</a></h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>utf-8</td>
+                    <td>返回 utf-8 编码的内容</td>
+                </tr>
+                <tr>
+                    <td>gbk</td>
+                    <td>返回 gbk 编码的内容。不支持与异步函数同用</td>
+                </tr>
+                <tr>
+                    <td>其他</td>
+                    <td>返回 utf-8 编码的内容</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-wrapper">
+        <h2 id="返回信息" tabindex="-1">返回信息 <a class="header-anchor" href="#返回信息" aria-label="Permalink to &quot;返回信息&quot;">​</a>
+        </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>返回参数名称</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>一言标识</td>
+                </tr>
+                <tr>
+                    <td>yiyan</td>
+                    <td>一言正文。编码方式 unicode。使用 utf-8。</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>类型。请参考第三节参数的表格</td>
+                </tr>
+                <tr>
+                    <td>from</td>
+                    <td>一言的出处</td>
+                </tr>
+                <tr>
+                    <td>from_who</td>
+                    <td>一言的作者</td>
+                </tr>
+                <tr>
+                    <td>creator</td>
+                    <td>添加者</td>
+                </tr>
+                <tr>
+                    <td>creator_uid</td>
+                    <td>添加者用户标识</td>
+                </tr>
+                <tr>
+                    <td>reviewer</td>
+                    <td>审核员标识</td>
+                </tr>
+                <tr>
+                    <td>uuid</td>
+                    <td>一言唯一标识；可以链接到 <a href="https://txt.201562.xyz/?uuid=" target="_blank"
+                            rel="noreferrer">https://txt.201562.xyz/?uuid=</a> 查看这个一言的完整信息</td>
+                </tr>
+                <tr>
+                    <td>commit_from</td>
+                    <td>提交方式</td>
+                </tr>
+                <tr>
+                    <td>created_at</td>
+                    <td>添加时间</td>
+                </tr>
+                <tr>
+                    <td>length</td>
+                    <td>句子长度</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-wrapper"> 示例：<a href="https://txt.201562.xyz/?type=Anime@Game&encode=text">https://txt.201562.xyz/?type=Anime@Game&encode=text</a>
+    </div>
+</body>
+
+</html>
